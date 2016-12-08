@@ -3,10 +3,10 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'registrations' }
   
-  resources :products
+  resources :products, only: [:index]
   
   namespace :admin do
-    resources :users
-    root to: "users#index"
+    resources :products
+    root to: "products#index"
   end
 end
