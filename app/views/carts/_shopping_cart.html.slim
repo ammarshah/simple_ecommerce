@@ -14,3 +14,6 @@
   - @order_lines.each do |order_line|
     = render 'carts/cart_row', product: order_line.product, order_line: order_line, show_total: true
     hr
+  br
+  br
+  = link_to "Checkout", new_charge_path(), class: "btn btn-success float-xl-right"
