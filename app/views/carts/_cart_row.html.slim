@@ -1,0 +1,26 @@
+.well
+  .row
+    .col-xs-8
+      h5
+        = product.name
+    .col-xs-4
+      h6.text-right
+        | Unit Price: 
+        span style="color: green"
+          = number_to_currency order_line.unit_price
+
+      = form_for order_line, remote: true do |f|
+        .row
+          .col-xs-4
+            = f.number_field :qty, value: order_line.qty.to_i, class: "form-control", min: 1
+            = f.hidden_field :product_id, value: product.id
+          
+          .col-xs-8.text-right
+            .btn-group
+              = f.submit "Update", class: "btn btn-primary"
+              = link_to "Delete", order_line, { data: { confirm: "Are you sure you wish to delete the product '#{order_line.product.name}' from your cart?" }, method: :delete, remote: true, class: "btn btn-danger" }
+
+        h6.text-right
+          | Total Price: 
+          span style="color: green"
+            = number_to_currency order_line.total_price

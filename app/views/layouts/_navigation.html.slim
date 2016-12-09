@@ -9,3 +9,7 @@
       = link_to "Home", current_user && current_user.admin? ? '/admin' : root_path, class: 'navbar-brand'
       ul.nav.navbar-nav
         = render 'layouts/navigation_links'
+  - if current_user && current_user.user?
+    .float-sm-right
+      h1.cart-text
+        = render 'layouts/cart_text'

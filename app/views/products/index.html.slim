@@ -1,20 +1,8 @@
-h1 Listing products
+h3.text-center Products in Stock
+hr
+br
+br
 
-table
-  thead
-    tr
-      th Name
-      th Description
-      th Price
-      th Status
-      th
-      th
-      th
-
-  tbody
-    - @products.each do |product|
-      tr
-        td = product.name
-        td = product.description
-        td = product.price
-        td = product.status
+- @products.each do |product|
+  = render "product_row", product: product, order_line: @order_line
+  hr
