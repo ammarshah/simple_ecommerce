@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208175209) do
+ActiveRecord::Schema.define(version: 20161209010714) do
+
+  create_table "order_lines", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "qty"
+    t.float    "unit_price",  limit: 24
+    t.float    "total_price", limit: 24
+    t.integer  "product_id"
+    t.integer  "order_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["order_id"], name: "index_order_lines_on_order_id", using: :btree
+    t.index ["product_id"], name: "index_order_lines_on_product_id", using: :btree
+  end
+
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "order_no"
+    t.float    "total",      limit: 24
+    t.date     "date"
+    t.integer  "user_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
+  end
 
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name",                   null: false
@@ -41,4 +63,7 @@ ActiveRecord::Schema.define(version: 20161208175209) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "order_lines", "orders"
+  add_foreign_key "order_lines", "products"
+  add_foreign_key "orders", "users"
 end
