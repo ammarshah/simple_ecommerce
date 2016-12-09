@@ -1,4 +1,6 @@
 class StripeWebhooksController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def charge_succeeded
   	data = params
     if data["type"].eql?("charge.succeeded")
@@ -9,8 +11,10 @@ class StripeWebhooksController < ApplicationController
         order = Order.find_by_id(order_id)
         order.date = Date.today
         order.save!
+        flash[:success] = "Successful payment, go to My Order page to your newly placed order."
       rescue Exception => e
         puts "=========== Exception: charge_succeeded webhook: " + e.message
+        flash[:error] = e.message
       end
     end
 
