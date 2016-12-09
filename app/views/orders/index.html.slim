@@ -1,0 +1,21 @@
+h3.text-center My Orders (#{@orders.size})
+hr
+br
+br
+
+- if @orders.size == 0
+  p.text-center
+    | You have not placed any order yet.
+- else
+	- @orders.each do |order|
+	  .well
+		  .row
+		    .col-xs-8
+		      h5
+		        = order.order_no
+		    .col-xs-4
+		      h6.text-right
+		        | Total: 
+		        span style="color: green"
+		          = number_to_currency order.total
+	  hr
