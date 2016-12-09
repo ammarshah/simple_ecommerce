@@ -6,6 +6,7 @@ class ChargesController < ApplicationController
   def create
 	  # Amount
 	  @amount = current_order.total
+	  @order_no = current_order.order_no
 	  
 	  # Amount in cents
 	  @amount_in_cents = current_order.total * 100
